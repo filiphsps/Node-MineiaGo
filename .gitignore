@@ -1,0 +1,15 @@
+# Dependency directory
+node_modules
+
+# Grunt
+.grunt
+
+# Binary
+build
+worlds/*
+world/*
+
+# Other
+/config.json
+.vscode/*
+npm-debug.log
