@@ -29,8 +29,13 @@ server.init();
 /* Handle console input */
 node.stdin.setEncoding('utf8');
 node.stdin.on('data', (cmd) => {
-    //FIXME: metadata
     cmd = (cmd + '').trim();
+
+    //Check if server is done initializing
+    if (!global.done && (cmd !== 'about' && cmd !== 'debug'))
+        return chatHandler('Server is still initializing...', null);
+
+    //FIXME: metadata
     command.runCommand(cmd, global.server.serverPlayer, (err, res) => {
         if (err)
             log(err, 1);
