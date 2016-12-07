@@ -10,10 +10,10 @@ module.exports = {
 };
 
 module.exports.onInit = function (callback) {
-    //Register hello-world command
+    //Register helloworld command
     command.registerCommand(
         'helloworld:helloworld',                        //id
-        'helloworld',                                   //command
+        ['helloworld', 'hello-world'],                  //command
         'Whispers "Hello World" for only you to see',   //description
         (para, meta) => {                               //function
             if (para.length > 0)
@@ -22,6 +22,7 @@ module.exports.onInit = function (callback) {
                 chat.broadcast('private.' + meta.player.username, 'Hello World', meta.player);
         });
     
+    //Handle event
     server.getEvents().on('onPlayerConnect', (player) => {
         chat.broadcast('global.users' + player.username, 'Howdy ' + player.username + '!', null);
     });

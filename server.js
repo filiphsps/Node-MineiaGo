@@ -17,6 +17,22 @@ let node            = process,
     command         = require('./lib/controllers/command'),
     readline        = require('readline');
 
+/* Handle console.log */
+function fixStdoutFor(cli) {
+    var oldStdout = process.stdout;
+    var newStdout = Object.create(oldStdout);
+    newStdout.write = function() {
+        cli.output.write('\x1b[2K\r');
+        var result = oldStdout.write.apply(
+            this,
+            Array.prototype.slice.call(arguments)
+        );
+        cli._refreshLine();
+        return result;
+    }
+    process.__defineGetter__('stdout', function() { return newStdout; });
+}
+
 /* Announce */
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
 log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + require(global.sdk + '/util/version')() + '...', 0);
@@ -34,15 +50,15 @@ const rl = readline.createInterface({
     output: process.stdout,
     prompt: '> '
 });
+fixStdoutFor(rl);
 rl.prompt();
 rl.on('close', () => {
     onShutdown();
 });
-
 rl.on('line', (cmd) => {
     //Remove input echo
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine()
+    process.stdout.moveCursor(0, 0);
+    //process.stdout.clearLine();
 
     cmd = (cmd + '').trim();
 
@@ -60,6 +76,12 @@ rl.on('line', (cmd) => {
         rl.prompt();
     });
 });
+var clog = console.log;
+console.log = function() {
+    rl.output.write('\x1b[2K\r');
+    clog.apply(console, Array.prototype.slice.call(arguments));
+    rl._refreshLine();
+}
 
 /* Handle console output */
 function chatHandler (message, sender) {
