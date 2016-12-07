@@ -9,6 +9,7 @@ module.exports = {
     'description': 'Example plugin to showcase the plugin api',
 };
 
+let onPlayerConnectEvent;
 module.exports.onInit = function (callback) {
     //Register helloworld command
     command.registerCommand(
@@ -23,8 +24,14 @@ module.exports.onInit = function (callback) {
         });
     
     //Handle event
-    server.getEvents().on('onPlayerConnect', (player) => {
+    onPlayerConnectEvent = (player) => {
         chat.broadcast('global.users' + player.username, 'Howdy ' + player.username + '!', null);
-    });
+    };
+    server.getEvents().on('onPlayerConnect', onPlayerConnectEvent);
     callback();
 };
+
+module.exports.onClean = () => {
+    //Be a good person, clean up the event listeners after you
+    server.getEvents().removeListener('onPlayerConnect', onPlayerConnectEvent);
+}
