@@ -14,7 +14,8 @@ let node            = process,
     server          = require('./lib/controllers/server'),
     pack            = require('./package.json'),
     MCPEColor       = require('node-mcpe-color-parser'),
-    command         = require('./lib/controllers/command');
+    command         = require('./lib/controllers/command'),
+    readline        = require('readline');
 
 /* Announce */
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
@@ -28,12 +29,26 @@ server.init();
 
 /* Handle console input */
 node.stdin.setEncoding('utf8');
-node.stdin.on('data', (cmd) => {
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    prompt: '> '
+});
+rl.prompt();
+rl.on('close', () => {
+    onShutdown();
+});
+
+rl.on('line', (cmd) => {
+    //Remove input echo
+    process.stdout.moveCursor(0, -1);
+    process.stdout.clearLine()
+
     cmd = (cmd + '').trim();
 
     //Check if server is done initializing
-    if (!global.done && (cmd !== 'about' && cmd !== 'debug'))
-        return chatHandler('Server is still initializing...', null);
+    //if (!global.done && (cmd !== 'about' && cmd !== 'debug'))
+    //    return chatHandler('Server is still initializing...', null);
 
     //FIXME: metadata
     command.runCommand(cmd, global.server.serverPlayer, (err, res) => {
@@ -41,6 +56,8 @@ node.stdin.on('data', (cmd) => {
             log(err, 1);
         else if (res)
             log(res, 0);
+
+        rl.prompt();
     });
 });
 
