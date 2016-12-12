@@ -1,6 +1,7 @@
 # MineiaGo (UNDER SLOW DEVELOPMENT)
 
-A proxy to bridge Minecraft Pocket Edition and Windows 10 Edition version ```0.16.x``` with Minecraft PC ```1.10```.
+A proxy to bridge Minecraft Pocket Edition and Windows 10 Edition version ```0.16.x``` with Minecraft PC ```1.11```.
+Currently broken (as of the 0.16 update), I'm on it.
 
 ## Requirements
 * Node.js 6.1.0 or above
