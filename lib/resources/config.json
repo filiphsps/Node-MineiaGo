@@ -1,6 +1,7 @@
 {
     "serverPort": 19132,
     "serverIp": "0.0.0.0",
+    "mcpcPort": 25565,
     "mcpcIp": "localhost",
     "maxPlayers": 20,
     "logLevel": -1
