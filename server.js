@@ -1,5 +1,5 @@
 // MineiaGo
-// Copyright (C) 2016  Filiph Sandström
+// Copyright (C) 2016-2017  Filiph Sandström
 
 'use strict';
 
@@ -15,16 +15,17 @@ let node            = process,
     pack            = require('./package.json'),
     MCPEColor       = require('node-mcpe-color-parser'),
     command         = require('./lib/controllers/command'),
+    clog            = console.log,
     readline        = require('readline');
 
 /* Clear console */
-process.stdout.write("\u001b[2J\u001b[0;0H");
+process.stdout.write('\u001b[2J\u001b[0;0H');
 
 /* Handle console.log */
-function fixStdoutFor(cli) {
-    var oldStdout = process.stdout;
-    var newStdout = Object.create(oldStdout);
-    newStdout.write = function() {
+function fixStdoutFor (cli) {
+    let oldStdout = process.stdout,
+        newStdout = Object.create(oldStdout);
+    newStdout.write = () => {
         cli.output.write('\x1b[2K\r');
         var result = oldStdout.write.apply(
             this,
@@ -32,8 +33,8 @@ function fixStdoutFor(cli) {
         );
         cli._refreshLine();
         return result;
-    }
-    process.__defineGetter__('stdout', function() { return newStdout; });
+    };
+    process.__defineGetter__('stdout', () => { return newStdout; });
 }
 
 /* Announce */
@@ -58,7 +59,7 @@ rl.prompt();
 rl.on('close', () => {
     onShutdown();
 });
-rl.on('line', (cmd) => {
+rl.on('line', function (cmd) {
     //Remove input echo
     process.stdout.moveCursor(0, 0);
     //process.stdout.clearLine();
@@ -79,12 +80,12 @@ rl.on('line', (cmd) => {
         rl.prompt();
     });
 });
-var clog = console.log;
-console.log = function() {
+
+console.log = function () {
     rl.output.write('\x1b[2K\r');
     clog.apply(console, Array.prototype.slice.call(arguments));
     rl._refreshLine();
-}
+};
 
 /* Handle console output */
 function chatHandler (message, sender) {
