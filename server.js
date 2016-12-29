@@ -1,5 +1,6 @@
 // MineiaGo
 // Copyright (C) 2016-2017  Filiph Sandström
+// Licensed under the ABRMS license
 
 'use strict';
 
@@ -39,6 +40,7 @@ function fixStdoutFor (cli) {
 
 /* Announce */
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
+log('Licensed under the ABRMS license')
 log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + require(global.sdk + '/util/version')() + '...', 0);
 
 /* Load config */
