@@ -38,6 +38,7 @@ function fixStdoutFor (cli) {
 }
 
 /* Announce */
+require('node-bash-title')('MineiaGo');
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
 log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + require(global.sdk + '/util/version')() + '...', 0);
 
