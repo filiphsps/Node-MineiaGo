@@ -19,4 +19,4 @@ $ npm start
 ```
 
 ## License
-MIT © [Filiph Sandström](https://www.filiphsandstrom.com)
+ABRMS © [Filiph Sandström](https://www.filiphsandstrom.com)
