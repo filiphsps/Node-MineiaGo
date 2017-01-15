@@ -29,7 +29,7 @@
     "mkdirp": "^0.5.1",
     "node-mcpe-color-parser": "0.1.0",
     "pocket-minecraft-protocol": "git+https://github.com/filfat/pocket-minecraft-protocol.git#realms",
-    "prismarine-chunk": "git+https://github.com/filfat/prismarine-chunk.git",
+    "prismarine-chunk": "^1.4.0",
     "prismarine-world": "^1.0.1",
     "protodef": "^1.2.3",
     "vec3": "^0.1.3"
