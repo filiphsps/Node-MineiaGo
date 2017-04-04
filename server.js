@@ -20,7 +20,8 @@ let node            = process,
     readline        = require('readline');
 
 /* Clear console */
-process.stdout.write('\u001b[2J\u001b[0;0H');
+process.stdout.write('\u001b[2J\u001b[0;0H');   //Bash
+process.stdout.write('\x1Bc');                  //CMD & Powershell
 
 /* Handle console.log */
 function fixStdoutFor (cli) {
@@ -42,7 +43,7 @@ function fixStdoutFor (cli) {
 require('node-bash-title')('MineiaGo');
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
 log('Licensed under the ABRMS license')
-log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + require(global.sdk + '/util/version')() + '...', 0);
+log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + process.platform + '-' + require(global.sdk + '/util/version')() + '...', 0);
 
 /* Load config */
 global.config = require(global.sdk + '/controllers/config')();
