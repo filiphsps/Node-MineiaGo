@@ -7,29 +7,31 @@ let chat    = require(global.sdk + '/controllers/chat'),
     server  = require(global.sdk + '/controllers/server');
 
 module.exports = {
-    'name': 'HelloWorld',
+    'name': 'template',
     'version': '1.0.0',
-    'author': 'Filiph Sandstrom',
-    'description': 'Example plugin to showcase the plugin api',
+    'author': 'MineiaGo',
+    'description': 'template plugin',
+
+    'disabled': true
 };
 
 let onPlayerConnectEvent;
-module.exports.onInit = function (callback) {
+module.exports.onInit = (callback) => {
     //Register helloworld command
     command.registerCommand(
-        'helloworld:helloworld',                        //id
-        ['helloworld', 'hello-world'],                  //command
-        'Whispers "Hello World" for only you to see',   //description
+        'helloworld:helloworld',                        //command id [namespace:command]
+        ['helloworld', 'hello-world'],                  //command(s)
+        'TEMPORARY DESCRIPTION',                        //description
         (para, meta) => {                               //function
-            if (para.length > 0)
-                chat.broadcast('global.users', 'Hello ' + para[0] + '!', meta.player);
-            else
-                chat.broadcast('private.' + meta.player.username, 'Hello World', meta.player);
+            
+            //para => array of arguments passed to the command
+            //meta => information about the player/entity executing the command
+
         });
     
-    //Handle event
+    //Handle events
     onPlayerConnectEvent = (player) => {
-        chat.broadcast('global.users' + player.username, 'Howdy ' + player.username + '!', null);
+        //player => a player object
     };
     server.getEvents().on('onPlayerConnect', onPlayerConnectEvent);
     callback();
