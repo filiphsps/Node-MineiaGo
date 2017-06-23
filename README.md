@@ -5,7 +5,7 @@ Currently broken (as of the 0.16 update), I'm on it.
 
 ## Requirements
 * Node.js 6.1.0 or above
-* Windows, MacOS or Linux (only tested on MacOS)
+* Windows, MacOS or Linux (only tested on MacOS & Windows)
 
 ## Install
 ```
