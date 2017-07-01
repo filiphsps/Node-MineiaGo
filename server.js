@@ -10,6 +10,7 @@ global.sdk  = path.dirname(require.main.filename) + '/lib';
 
 /* Load modules */
 let node            = process,
+    nodeModuleCache = require('fast-boot'),
     chalk           = require('chalk'),
     log             = require('./lib/util/log'),
     server          = require('./lib/controllers/server'),
@@ -18,6 +19,9 @@ let node            = process,
     command         = require('./lib/controllers/command'),
     clog            = console.log,
     readline        = require('readline');
+
+/* Cache modules */
+nodeModuleCache.start({});
 
 /* Clear console */
 process.stdout.write('\u001b[2J\u001b[0;0H');   //Bash
