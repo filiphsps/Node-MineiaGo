@@ -13,3 +13,4 @@ world/*
 /config.json
 .vscode/*
 npm-debug.log
+package-lock.json
