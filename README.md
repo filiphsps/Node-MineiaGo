@@ -1,4 +1,4 @@
-# MineiaGo (UNDER SLOW DEVELOPMENT)
+# MineiaGo
 
 A proxy to bridge Bedrock (Minecraft Pocket Edition, Minecraft Console Editions and Windows 10 Edition) version ```1.1.x``` with Minecraft PC ```1.12```.
 Currently broken (as of the 0.16 update), I'm on it.
