@@ -45,7 +45,7 @@ function fixStdoutFor (cli) {
 /* Announce */
 require('node-bash-title')('MineiaGo');
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
-log('Licensed under the ABRMS license')
+log('Licensed under the ABRMS license');
 log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + process.platform + '-' + require(global.sdk + '/util/version')() + '...', 0);
 
 /* Load config */
