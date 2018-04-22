@@ -9,7 +9,7 @@ Currently broken (as of the 0.16 update), I'm on it.
 
 ## Install
 ```
-$ git clone https://github.com/filfat/MineiaGo.git && cd MineiaGo && npm install
+$ git clone https://github.com/filfat/Node-MineiaGo.git && cd Node-MineiaGo && yarn
 ```
 
 ## Usage
