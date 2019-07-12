@@ -347,7 +347,7 @@ module.exports.connectToPC = (player) => {
             port: global.config.mcpcPort,
             username: player.m_email,
             password: player.m_password,
-            version: '1.12'
+            version: '1.14.1'
         });
 
         player.client_pc.on('connect', (packet) => {

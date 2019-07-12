@@ -83,7 +83,7 @@ rl.on('line', (cmd) => {
     });
 });
 
-console.log = () => {
+console.log = function () {
     rl.output.write('\x1b[2K\r');
     clog.apply(console, Array.prototype.slice.call(arguments));
     rl._refreshLine();

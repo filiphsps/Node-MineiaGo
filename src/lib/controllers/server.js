@@ -1,16 +1,16 @@
+import Minecraft from 'minecraft-protocol';
+import mcpeProtocol from 'pocket-minecraft-protocol';
+import GitRev from 'git-rev-sync';
+
 import log from '../util/log';
 import { color } from '../util/color';
+import command from '../controllers/command';
+import chat from '../controllers/chat';
+import player from '../controllers/player';
+import plugins from '../controllers/plugins';
+import Server from '../models/server';
 
-let mcpeProtocol = require('pocket-minecraft-protocol'),
-    command = require('../controllers/command'),
-    chat = require('../controllers/chat'),
-    player = require('../controllers/player'),
-    Server = require('../models/server'),
-    plugins = require('../controllers/plugins'),
-    pack = require('../../../package.json'),
-    GitRev = require('git-rev-sync'),
-    Minecraft = require('minecraft-protocol');
-
+const pack = require('../../../package.json')
 const PROTOCOL = 354,
     VERSION = '1.11.4';
 
@@ -120,9 +120,9 @@ module.exports.init = () => {
                 if (para.length < 2)
                     return chat.broadcast('private.' + meta.player.username, 'Usage: /config [property] [value]', null);
 
-                (require('../controllers/config')).save(para[0], para[1], () => {
+                /*(require('../controllers/config')).save(para[0], para[1], () => {
                     return chat.broadcast('private.' + meta.player.username, 'Updated config!', null);
-                });
+                });*/
             });
 
         /*command.registerCommand(
