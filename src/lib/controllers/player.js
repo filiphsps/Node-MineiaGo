@@ -1,14 +1,10 @@
-// MineiaGo
-// Copyright (C) 2016-2017  Filiph Sandström
-// Licensed under the ABRMS license
+import chat from '../controllers/chat';
+import server from '../controllers/server';
+import Player from '../models/player';
+import log from '../util/log'
+import World from '../controllers/world'
 
-'use strict';
-let chat        = require(global.sdk + '/controllers/chat'),
-    server      = require(global.sdk + '/controllers/server'),
-    Player      = require(global.sdk + '/models/player'),
-    log         = require(global.sdk + '/util/log'),
-    World       = require(global.sdk + '/controllers/world'),
-    PrisChunk   = require('prismarine-chunk')('pe_1.0'),
+let PrisChunk   = require('prismarine-chunk')('pe_1.0'),
     Chunk       = require('prismarine-chunk')('1.9'),
     Minecraft   = require('minecraft-protocol');
 
@@ -279,7 +275,7 @@ module.exports.onClientDisconnect = (player) => {
 module.exports.addPlayer = (player) => {
     //FIXME: Check if player already is connected
 
-    if (global.server.players.map(function (e) { return e.uuid; }).indexOf(player.uuid) > -1) {
+    if (global.server.players.map((e) => { return e.uuid; }).indexOf(player.uuid) > -1) {
         let username = player.username; player.username = null;
         return module.exports.disconnectPlayer(player, username + ' is already connected!');
     }
@@ -292,7 +288,7 @@ module.exports.removePlayer = (player) => {
     if (!player || !player.username)
         return;
 
-    for (var n = 0; n < global.server.players.length; n++) {
+    for (let n = 0; n < global.server.players.length; n++) {
         if (global.server.players[n].username === player.username)
             global.server.players.splice(n, 1);
     }
@@ -337,7 +333,7 @@ module.exports.sendChat = (player, message, sender) => {
 };
 
 module.exports.getPlayer = (username) => {
-    let index = global.server.players.map(function (e) { return e.username; }).indexOf(username);
+    let index = global.server.players.map((e) => { return e.username; }).indexOf(username);
     if (index > -1)
         return global.server.players[index];
     else
@@ -440,13 +436,13 @@ module.exports.connectToPC = (player) => {
                 });
             });
         });
-        player.client_pc.on('end', function () {
+        player.client_pc.on('end', () => {
             console.log('Connection lost');
             module.exports.connectToPC(player); //FIXME
             //process.exit();
         });
 
-        player.client_pc.on('error', function (err) {
+        player.client_pc.on('error', (err) => {
             console.log('Error occured');
             console.log(err);
         });

@@ -8,7 +8,7 @@ let chalk       = require('chalk'),
     MCPEColor   = require('node-mcpe-color-parser'),
     config      = null;
 
-module.exports = function (message, level) {
+module.exports = (message, level) => {
     try {
         config = require(global.sdk + '/../config.js');
     } catch (e) {

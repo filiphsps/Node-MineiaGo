@@ -1,13 +1,9 @@
-// MineiaGo
-// Copyright (C) 2016-2017  Filiph Sandström
-// Licensed under the ABRMS license
+import log from '../util/log';
+import { color } from '../util/color';
 
-'use strict';
-let log     = require(global.sdk + '/util/log'),
-    command = require('../controllers/command'),
+let command = require('../controllers/command'),
     plugin  = require('../controllers/plugin'),
     chat    = require('../controllers/chat'),
-    color   = require(global.sdk + '/util/color').color,
     path    = require('path'),
     fs      = require('fs');
 
@@ -46,7 +42,7 @@ module.exports.init = () => {
             let out = color('Plugins (' + global.server.plugins.length + '): ', 'green'),
                 ch = 'private.' + meta.player.username;
 
-            for (var n = 0; n < global.server.plugins.length; n++) {
+            for (let n = 0; n < global.server.plugins.length; n++) {
                 let plugin = global.server.plugins[n];
 
                 if (plugin.active)
@@ -81,7 +77,7 @@ module.exports.init = () => {
 };
 
 module.exports.clean = () => {
-    for (var n = 0; n < global.server.plugins.length; n++) {
+    for (let n = 0; n < global.server.plugins.length; n++) {
         let plugin = global.server.plugins[n];
 
         if (plugin.onClean)

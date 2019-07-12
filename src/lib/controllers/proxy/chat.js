@@ -4,9 +4,8 @@ module.exports = (packet, player) => {
 
     switch (message.translate) {
         case 'chat.type.announcement': {
-
             let msg = '§5[' + message.with[0].text + '] ';
-            for (var n = 0; n < message.with[1].extra.length; n++) {
+            for (let n = 0; n < message.with[1].extra.length; n++) {
                 msg += message.with[1].extra[n].text;
             }
 
@@ -16,7 +15,7 @@ module.exports = (packet, player) => {
 
         case 'chat.type.text': {
             let msg = '<' + message.with[0].text + '> ';
-            for (var n = 1; n < message.with.length; n++) {
+            for (let n = 1; n < message.with.length; n++) {
                 msg += message.with[n];
             }
 

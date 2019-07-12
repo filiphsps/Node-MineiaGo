@@ -3,15 +3,15 @@
 // Licensed under the ABRMS license
 
 'use strict';
-module.exports.init = function () {
+module.exports.init = () => {
     return;
 };
 
-module.exports.subscribe = function (channel, callback) {
+module.exports.subscribe = (channel, callback) => {
     return global.server.chat.on(channel, callback);
 };
 
-module.exports.broadcast = function (channel, message, sender) {
+module.exports.broadcast = (channel, message, sender) => {
     let chat = global.server.chat,
         ch = channel || 'global.users';
 

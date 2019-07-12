@@ -1,23 +1,18 @@
-// MineiaGo
-// Copyright (C) 2016-2017  Filiph Sandström
-// Licensed under the ABRMS license
-'use strict';
+import nodeModuleCache from 'fast-boot';
+import chalk from 'chalk';
+import MCPEColor from 'node-mcpe-color-parser';
+import readline from 'readline';
 
-/* Set globals */
-var path    = require('path');
-global.sdk  = path.dirname(require.main.filename) + '/lib';
+import log from './lib/util/log';
+import config from './lib/controllers/config';
+import server from './lib/controllers/server';
+import command from './lib/controllers/command';
+import version from './lib/util/version';
 
 /* Load modules */
-let node            = process,
-    nodeModuleCache = require('fast-boot'),
-    chalk           = require('chalk'),
-    log             = require('./lib/util/log'),
-    server          = require('./lib/controllers/server'),
-    pack            = require('./package.json'),
-    MCPEColor       = require('node-mcpe-color-parser'),
-    command         = require('./lib/controllers/command'),
-    clog            = console.log,
-    readline        = require('readline');
+let node = process,
+    pack = require('../package.json'),
+    clog = console.log;
 
 /* Cache modules */
 nodeModuleCache.start({});
@@ -27,12 +22,12 @@ process.stdout.write('\u001b[2J\u001b[0;0H');   //Bash
 process.stdout.write('\x1Bc');                  //CMD & Powershell
 
 /* Handle console.log */
-function fixStdoutFor (cli) {
+const fixStdoutFor = (cli) => {
     let oldStdout = process.stdout,
         newStdout = Object.create(oldStdout);
     newStdout.write = () => {
         cli.output.write('\x1b[2K\r');
-        var result = oldStdout.write.apply(
+        let result = oldStdout.write.apply(
             this,
             Array.prototype.slice.call(arguments)
         );
@@ -46,10 +41,10 @@ function fixStdoutFor (cli) {
 require('node-bash-title')('MineiaGo');
 log(chalk.bgCyan('MineiaGo') + ' by ' + pack.author, 0);
 log('Licensed under the ABRMS license');
-log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + process.platform + '-' + require(global.sdk + '/util/version')() + '...', 0);
+log('Starting ' + chalk.bgCyan('MineiaGo') + ' version ' + process.platform + '-' + version() + '...', 0);
 
 /* Load config */
-global.config = require(global.sdk + '/controllers/config')();
+global.config = config();
 
 /* Init Server */
 server.init();
@@ -66,7 +61,7 @@ rl.prompt();
 rl.on('close', () => {
     onShutdown();
 });
-rl.on('line', function (cmd) {
+rl.on('line', (cmd) => {
     //Remove input echo
     process.stdout.moveCursor(0, 0);
     //process.stdout.clearLine();
@@ -88,30 +83,30 @@ rl.on('line', function (cmd) {
     });
 });
 
-console.log = function () {
+console.log = () => {
     rl.output.write('\x1b[2K\r');
     clog.apply(console, Array.prototype.slice.call(arguments));
     rl._refreshLine();
 };
 
 /* Handle console output */
-function chatHandler (message, sender) {
+function chatHandler(message, sender) {
     log(MCPEColor(message), 0);
 }
 global.server.chat.on('global.users', chatHandler);
 global.server.chat.on('private.server', chatHandler);
 
 /* Fatal Error */
-node.on('uncaughtException', function (err) {
+node.on('uncaughtException', (err) => {
     console.log(err);
     log(err.stack, 3);
 });
 
 /* Handle shutdown */
-function onForceShutdown () {
+function onForceShutdown() {
     //TODO
 }
-function onShutdown () {
+function onShutdown() {
     node.exit();
 }
 node.on('exit', onForceShutdown.bind());

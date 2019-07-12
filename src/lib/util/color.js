@@ -33,6 +33,6 @@ let colors = {
     'yellow': '§e'
 };
 
-module.exports.color = function (text, color) {
+module.exports.color = (text, color) => {
     return colors[color] + text + '§r§f';
 };

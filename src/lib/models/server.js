@@ -1,11 +1,6 @@
-// MineiaGo
-// Copyright (C) 2016-2017  Filiph Sandström
-// Licensed under the ABRMS license
+import { color } from '../util/color';
 
-'use strict';
-
-let EventEmitter    = require('events'),
-    color           = require(global.sdk + '/util/color').color;
+let EventEmitter    = require('events');
 
 module.exports = function () {
     this.commands = [];

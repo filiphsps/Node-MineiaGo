@@ -1,20 +1,41 @@
 {
-    "extends": "standard",
+    "parser": "babel-eslint",
+
+    "extends": [
+        "eslint:recommended"
+    ],
+
+    "plugins": [
+        "@typescript-eslint",
+        "import"
+    ],
+
     "env": {
-        "node": true
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jasmine": true
     },
-    "installedESLint": true, 
+
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
+
     "rules": {
-        "semi": [2, "always"],
-        "strict": 0,
-        "indent": [2, 4, {
-            "SwitchCase": 1
-        }],
-        "spaced-comment": 0,
-        "one-var": [2, "always"],
-        "no-multi-spaces": 0,
-        "eol-last": 0,
-        "curly": 0,
-        "no-multiple-empty-lines": 2
+        "consistent-return": 2,
+        "no-mixed-operators": 0,
+        "no-useless-constructor": 0,
+        "standard/computed-property-even-spacing": 0,
+        "import/first": 0,
+        "no-unused-vars": 2,
+        "no-console": 2,
+
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "semi": ["error", "always"],
+        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+        "radix": ["off"]
     }
 }

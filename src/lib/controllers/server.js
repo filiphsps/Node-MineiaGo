@@ -1,25 +1,20 @@
-// MineiaGo
-// Copyright (C) 2016-2017  Filiph Sandström
-// Licensed under the ABRMS license
+import log from '../util/log';
+import { color } from '../util/color';
 
-'use strict';
+let mcpeProtocol = require('pocket-minecraft-protocol'),
+    command = require('../controllers/command'),
+    chat = require('../controllers/chat'),
+    player = require('../controllers/player'),
+    Server = require('../models/server'),
+    plugins = require('../controllers/plugins'),
+    pack = require('../../../package.json'),
+    GitRev = require('git-rev-sync'),
+    Minecraft = require('minecraft-protocol');
 
-let mcpeProtocol    = require('pocket-minecraft-protocol'),
-    command         = require('../controllers/command'),
-    chat            = require('../controllers/chat'),
-    player          = require('../controllers/player'),
-    Server          = require('../models/server'),
-    plugins         = require('../controllers/plugins'),
-    log             = require('../util/log'),
-    pack            = require('../../package.json'),
-    color           = require(global.sdk + '/util/color').color,
-    GitRev          = require('git-rev-sync'),
-    Minecraft       = require('minecraft-protocol');
+const PROTOCOL = 354,
+    VERSION = '1.11.4';
 
-const   PROTOCOL  = 113,
-        VERSION   = '1.1.1';
-
-module.exports.init = function () {
+module.exports.init = () => {
     global.server = new Server();
 
     let initCommands = () => {
@@ -88,7 +83,7 @@ module.exports.init = function () {
             'Lists the current online players',
             (para, meta) => {
                 let out = '';
-                for (var n = 1; n < global.server.players.length; n++) {
+                for (let n = 1; n < global.server.players.length; n++) {
                     out += global.server.players[n].formatedUsername;
 
                     if (n + 1 < global.server.players.length)
@@ -97,7 +92,7 @@ module.exports.init = function () {
                 chat.broadcast('private.' + meta.player.username,
                     color('Players (' + (global.server.players.length - 1) + '):', 'green') + ' ' + out);
             });
-        
+
         command.registerCommand(
             'mineiago:debug',
             'debug',
@@ -111,12 +106,12 @@ module.exports.init = function () {
                     commands: global.server.commands
                 }, null, 4).split(/\r?\n/);
 
-                for (var n = 0; n < output.length; n++) {
+                for (let n = 0; n < output.length; n++) {
                     chat.broadcast('private.' + meta.player.username,
                         output[n]); //TODO
                 }
             });
-        
+
         command.registerCommand(
             'mineiago:config',
             'config',
@@ -124,7 +119,7 @@ module.exports.init = function () {
             (para, meta) => {
                 if (para.length < 2)
                     return chat.broadcast('private.' + meta.player.username, 'Usage: /config [property] [value]', null);
-                
+
                 (require('../controllers/config')).save(para[0], para[1], () => {
                     return chat.broadcast('private.' + meta.player.username, 'Updated config!', null);
                 });
@@ -135,7 +130,7 @@ module.exports.init = function () {
             'kickall',
             'Kick everyone',
             (para, meta) => {
-                for (var n = 1; n < global.server.players.length; n++) {
+                for (let n = 1; n < global.server.players.length; n++) {
                     global.server.players[n].client.writeMCPE('disconnect', {
                         message: (para[0] ? para[0] : 'You were kicked from the proxy!')
                     });
@@ -152,8 +147,8 @@ module.exports.init = function () {
         host: global.config.mcpcIp,
         port: global.config.mcpcPort ? global.config.mcpcPort : 25565
     }, (err, MinecraftServer) => {
-        global.motd          = (MinecraftServer !== undefined) ? MinecraftServer.description.text : 'A Minecraft Server';
-        global.maxPlayers    = (MinecraftServer !== undefined) ? MinecraftServer.players.max : 20;
+        global.motd = (MinecraftServer !== undefined) ? MinecraftServer.description.text : 'A Minecraft Server';
+        global.maxPlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.max : 20;
         global.onlinePlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.online : 0;
 
         if (MinecraftServer === undefined || err) {
@@ -185,11 +180,11 @@ module.exports.init = function () {
                 if (err)
                     return log('Could not get MOTD from remote server', 1);
 
-                global.motd          = (MinecraftServer !== undefined) ? MinecraftServer.description.text : 'A Minecraft Server';
-                global.maxPlayers    = (MinecraftServer !== undefined) ? MinecraftServer.players.max : 20;
+                global.motd = (MinecraftServer !== undefined) ? MinecraftServer.description.text : 'A Minecraft Server';
+                global.maxPlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.max : 20;
                 global.onlinePlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.online : (global.server.players.length - 1);
-                global.server.pmc.name      = 'MCPE;' + global.motd + ';' + PROTOCOL + ';' + VERSION + ';' +
-                global.onlinePlayers + ';' + global.maxPlayers;
+                global.server.pmc.name = 'MCPE;' + global.motd + ';' + PROTOCOL + ';' + VERSION + ';' +
+                    global.onlinePlayers + ';' + global.maxPlayers;
                 log('Updated MOTD, maxPlayers & onlinePlayers', -1);
             });
         }, 30000);
@@ -199,13 +194,13 @@ module.exports.init = function () {
     });
 };
 
-module.exports.clean = function (callback) {
+module.exports.clean = (callback) => {
     //Cleanup after sub-modules
     command.clean();
     callback();
 };
 
-module.exports.getEvents = function () {
+module.exports.getEvents = () => {
     return global.server.events;
 };
 

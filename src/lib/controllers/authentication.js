@@ -4,7 +4,7 @@
 
 'use strict';
 
-module.exports.tryAuthenticate = function (client, callback) {
+module.exports.tryAuthenticate = (client, callback) => {
     //FIXME
     callback(null, true);
 };

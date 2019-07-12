@@ -1,9 +1,3 @@
-// MineiaGo
-// Copyright (C) 2016-2017  Filiph Sandström
-// Licensed under the ABRMS license
-
-'use strict';
-
 let Vector3 = require('vec3');
 
 function Player () {

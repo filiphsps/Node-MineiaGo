@@ -8,20 +8,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/filfat/mcpe-node.git"
+    "url": "git+https://github.com/filfat/Node-MineiaGo.git"
   },
   "keywords": [
     "mcpe",
     "minecraft"
   ],
-  "author": "Filiph Sandström & filfat Studios AB",
+  "author": "Filiph Sandström",
   "license": "ABRMS",
   "bugs": {
     "url": "https://github.com/filfat/mcpe-node/issues"
   },
   "homepage": "https://github.com/filfat/mcpe-node#readme",
   "dependencies": {
-    "chalk": "^1.1.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/register": "^7.4.0",
+    "typescript": "^3.5.1",
+    "chalk": "^2.4.2",
     "clear": "0.0.1",
     "fast-boot": "^1.0.7",
     "git-rev-sync": "^1.9.1",
@@ -32,17 +38,18 @@
     "node-bash-title": "0.0.2",
     "node-mcpe-color-parser": "git+https://github.com/filfat/node-mcpe-color-parser.git",
     "pocket-minecraft-protocol": "git+https://github.com/mhsjlw/pocket-minecraft-protocol.git#1.1",
-    "prismarine-chunk": "^1.4.0",
-    "prismarine-world": "^1.0.1",
+    "prismarine-chunk": "^1.11.0",
+    "prismarine-world": "^2.1.0",
     "protodef": "^1.2.3",
     "vec3": "^0.1.3"
   },
   "devDependencies": {
     "ava": "^0.15.2",
-    "eslint": "^2.13.1",
-    "eslint-config-standard": "^5.3.1",
-    "eslint-plugin-promise": "^1.3.2",
-    "eslint-plugin-standard": "^1.3.2"
+    "eslint": "^6.0.1",
+    "eslint-plugin-import": "^2.16.0",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "babel-eslint": "^10.0.1"
   },
   "ava": {
     "files": [

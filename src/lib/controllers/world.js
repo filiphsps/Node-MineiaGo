@@ -9,7 +9,7 @@ let PrisChunk   = require('prismarine-chunk')('pe_1.0'),
 module.exports.ConvertChunk = (chunk) => {
     let peChunk = new PrisChunk();
 
-    var x, y, z;
+    let x, y, z;
     for (x = 0; x < 16; x++) {
         for (z = 0; z < 16; z++) {
             for (y = 0; y < 256; y++) {

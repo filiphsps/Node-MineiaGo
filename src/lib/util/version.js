@@ -5,7 +5,10 @@
 //FIXME: Create package details module
 'use strict';
 
-let pack = require(global.sdk + '/../package.json');
-module.exports = function () {
+let pack = require('../../../package.json');
+
+const GetVersion = () => {
     return pack.version;
 };
+
+export default GetVersion;
