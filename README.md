@@ -1,6 +1,6 @@
 # MineiaGo
 
-A proxy to bridge Bedrock (Minecraft Pocket Edition, Minecraft Console Editions and Windows 10 Edition) version ```1.1.x``` with Minecraft PC ```1.12```.
+A proxy to bridge Bedrock (Minecraft Pocket Edition, Minecraft Console Editions and Windows 10 Edition) version ```1.12.0``` with Minecraft PC ```1.14```.
 Currently broken (as of the 0.16 update), I'm on it.
 
 ## Requirements
@@ -15,7 +15,7 @@ $ git clone https://github.com/filfat/Node-MineiaGo.git && cd Node-MineiaGo && y
 ## Usage
 It's still in early development, a.k.a "not ready for production"!
 ```
-$ npm start
+$ yarn start
 ```
 
 ## Contribution
