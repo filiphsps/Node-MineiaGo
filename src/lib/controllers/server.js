@@ -10,7 +10,7 @@ import player from '../controllers/player';
 import plugins from '../controllers/plugins';
 import Server from '../models/server';
 
-const pack = require('../../../package.json')
+const pack = require('../../../package.json');
 const PROTOCOL = 354,
     VERSION = '1.11.4';
 
@@ -158,7 +158,7 @@ module.exports.init = () => {
         //Start PMC
         global.server.pmc = mcpeProtocol.createServer({
             host: global.serverIp,
-            port: global.serverPort,
+            port: process.env.PORT || global.serverPort,
 
             name: 'MCPE;' + global.motd + ';' + PROTOCOL + ';' + VERSION + ';' +
                 global.onlinePlayers + ';' + global.maxPlayers, //TODO
@@ -174,8 +174,8 @@ module.exports.init = () => {
         //Ping PC Server every 30 seconds to check online player count
         global.pc_ping = setInterval(() => {
             Minecraft.ping({
-                host: global.config.mcpcIp,
-                port: global.config.mcpcPort ? global.config.mcpcPort : 25565
+                host: process.env.PC_IP || global.config.mcpcIp,
+                port: process.env.PC_PORT (global.config.mcpcPort ? global.config.mcpcPort : 25565)
             }, (err, MinecraftServer) => {
                 if (err)
                     return log('Could not get MOTD from remote server', 1);
@@ -185,7 +185,7 @@ module.exports.init = () => {
                 global.onlinePlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.online : (global.server.players.length - 1);
                 global.server.pmc.name = 'MCPE;' + global.motd + ';' + PROTOCOL + ';' + VERSION + ';' +
                     global.onlinePlayers + ';' + global.maxPlayers;
-                log('Updated MOTD, maxPlayers & onlinePlayers', -1);
+                return log('Updated MOTD, maxPlayers & onlinePlayers', -1);
             });
         }, 30000);
 
