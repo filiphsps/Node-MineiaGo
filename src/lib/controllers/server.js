@@ -11,8 +11,8 @@ import plugins from '../controllers/plugins';
 import Server from '../models/server';
 
 const pack = require('../../../package.json');
-const PROTOCOL = 354,
-    VERSION = '1.11.4';
+const PROTOCOL = 361,
+    VERSION = '1.12.0';
 
 module.exports.init = () => {
     global.server = new Server();
@@ -152,13 +152,14 @@ module.exports.init = () => {
         global.onlinePlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.online : 0;
 
         if (MinecraftServer === undefined || err) {
+            log(err, -1);
             log('Could not get MOTD from remote server', 1);
         }
 
         //Start PMC
         global.server.pmc = mcpeProtocol.createServer({
             host: global.serverIp,
-            port: process.env.PORT || global.serverPort,
+            port: global.serverPort,
 
             name: 'MCPE;' + global.motd + ';' + PROTOCOL + ';' + VERSION + ';' +
                 global.onlinePlayers + ';' + global.maxPlayers, //TODO
@@ -174,11 +175,13 @@ module.exports.init = () => {
         //Ping PC Server every 30 seconds to check online player count
         global.pc_ping = setInterval(() => {
             Minecraft.ping({
-                host: process.env.PC_IP || global.config.mcpcIp,
-                port: process.env.PC_PORT (global.config.mcpcPort ? global.config.mcpcPort : 25565)
+                host: global.config.mcpcIp,
+                port: (global.config.mcpcPort ? global.config.mcpcPort : 25565)
             }, (err, MinecraftServer) => {
-                if (err)
+                if (err) {
+                    log(err, -1);
                     return log('Could not get MOTD from remote server', 1);
+                }
 
                 global.motd = (MinecraftServer !== undefined) ? MinecraftServer.description.text : 'A Minecraft Server';
                 global.maxPlayers = (MinecraftServer !== undefined) ? MinecraftServer.players.max : 20;

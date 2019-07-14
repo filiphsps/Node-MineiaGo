@@ -13,10 +13,10 @@ module.exports = () => {
         log('Generating new config file...', 0);
 
         //Copy /lib/resources/config.json to /config.json
-        fs.createReadStream('../resources/config.json')
-            .pipe(fs.createWriteStream(global.sdk + '/../config.json'));
+        fs.createReadStream('./../src/lib/resources/config.json')
+            .pipe(fs.createWriteStream('config.json'));
 
-        config = require('../resources/config.json');
+        config = require('./../src/lib/resources/config.json');
     }
 
     return config;

@@ -35,7 +35,7 @@ const fixStdoutFor = (cli) => {
         return result;
     };
     process.__defineGetter__('stdout', () => { return newStdout; });
-}
+};
 
 /* Announce */
 require('node-bash-title')('MineiaGo');

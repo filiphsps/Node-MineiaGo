@@ -1,8 +1,8 @@
 import chat from '../controllers/chat';
 import server from '../controllers/server';
 import Player from '../models/player';
-import log from '../util/log'
-import World from '../controllers/world'
+import log from '../util/log';
+import World from '../controllers/world';
 
 let PrisChunk   = require('prismarine-chunk')('pe_1.0'),
     Chunk       = require('prismarine-chunk')('1.9'),
@@ -26,6 +26,8 @@ module.exports.onClientConnect = (client) => {
     });
 
     player.client.on('mcpe_login', (packet) => {
+        console.log(packet);
+
         if (packet.protocol !== server.PROTOCOL) {
             if (packet.protocol > server.PROTOCOL)
                 return player.client.writePacket('play_status', {
@@ -157,9 +159,9 @@ module.exports.onClientConnect = (client) => {
         //player.client.emit('request_chunk_radius');
 
         if (player.m_email !== null)
-            module.exports.connectToPC(player);
+            return module.exports.connectToPC(player);
         else
-            module.exports.sendChat(player, 'Please enter your Mojang email:');
+            return module.exports.sendChat(player, 'Please enter your Mojang email:');
     });
 
     player.client.on('move_player', (packet) => {
@@ -282,7 +284,7 @@ module.exports.addPlayer = (player) => {
 
     global.server.players.push(player);
     log(player.username + ' joined the game!', 0);
-    server.getEvents().emit('onPlayerConnect', player);
+    return server.getEvents().emit('onPlayerConnect', player);
 };
 module.exports.removePlayer = (player) => {
     if (!player || !player.username)
