@@ -1,3 +1,4 @@
+# See https://github.com/filfat/MineiaGo instead!
 # MineiaGo
 
 A proxy to bridge Bedrock (Minecraft Pocket Edition, Minecraft Console Editions and Windows 10 Edition) version ```1.12.0``` with Minecraft PC ```1.14```.
